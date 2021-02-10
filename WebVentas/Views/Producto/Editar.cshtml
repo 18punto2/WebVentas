@@ -1,0 +1,87 @@
+﻿@model WebVentas.Models.Producto
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h4>Editar Producto: @Model.Detalle </h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Editar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                Codigo
+                <input asp-for="Codcom" class="form-control" />
+                <span asp-validation-for="Codcom" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="IdArt" />
+            <div class="form-group">
+                Descripcion
+                <input asp-for="Detalle" class="form-control" />
+                <span asp-validation-for="Detalle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Medida
+                <select asp-for="Idmedida" class="form-control" id="ddlMedida"
+                        asp-items="@(new SelectList(ViewBag.Idmedida,"Codigo","Descripcion",Model.Idmedida))">
+                </select>
+                <span asp-validation-for="Idmedida" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden="hidden">
+                Activo
+                <input asp-for="Activo" class="form-control" />
+                <span asp-validation-for="Activo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Precio
+                <input asp-for="Pmayor" class="form-control" />
+                <span asp-validation-for="Pmayor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Tipo Mercaderia
+                <select asp-for="IdTipMer" class="form-control" id="ddlIdTipMer"
+                        asp-items="@(new SelectList(ViewBag.IdTipMer,"Codigo","Descripcion",Model.IdTipMer))">
+                </select>
+                <span asp-validation-for="IdTipMer" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                Codigo Sunat
+                <input asp-for="CodSunat" class="form-control" />
+                <span asp-validation-for="CodSunat" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                Familia
+                <select asp-for="IdFamilia" class="form-control" id="ddlFamilia"
+                        asp-items="@(new SelectList(ViewBag.IdFamilia,"Id","Nombre",Model.IdFamilia))">
+                </select>
+                <span asp-validation-for="IdFamilia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Linea
+                <select asp-for="IdLinea" class="form-control" id="ddlLinea"
+                        asp-items="@(new SelectList(ViewBag.IdLinea,"Id","Linea1",Model.IdLinea))">
+                </select>
+                <span asp-validation-for="IdLinea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Actualizar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Regresar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

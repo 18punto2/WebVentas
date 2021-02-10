@@ -1,0 +1,85 @@
+﻿@model WebVentas.ViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "ListaPedidosFecha";
+}
+
+<h1>Ventas por Fecha</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <div class="form-group col-md-3">
+                <input type="date" class="form-control" id="fechainicio" name="fechainicio" placeholder="Desde" value="@Model.Fechainicio.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-group col-md-3">
+                <input type="date" class="form-control" id="fechafin" name="fechafin" placeholder="Hasta" value="@Model.Fechafin.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-group col-md-3">
+                <select id="idcliente" name="idcliente" class="form-control" asp-items="@(new SelectList(ViewBag.IdCliente,"Id","NombCom",Model.IdCliente))">
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <input type="submit" value="Buscar" class="btn btn-success" />
+            </div>
+        }
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PaginaPedidos[0].IdCabecera)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaginaPedidos[0].FechaEmision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaginaPedidos[0].FechaVencimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaginaPedidos[0].Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaginaPedidos[0].Cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaginaPedidos[0].Vendedor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PaginaPedidos) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCabecera)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEmision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaVencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vendedor)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdCabecera">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdCabecera">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdCabecera">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+@{ Html.RenderPartial("_Paginador", Model);}

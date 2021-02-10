@@ -1,0 +1,82 @@
+﻿@*@model IEnumerable<WebVentas.Models.Producto>*@
+@model WebVentas.ViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <div class="form-group col-md-3">
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese producto" value="@Model.NombreProducto" />
+            </div>
+            <div class="form-group col-md-3">
+                <input type="submit" value="Buscar" class="btn-success" />
+            </div>
+        }
+    </div>
+</div>
+<p>
+    <a asp-action="Agregar">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Codigo
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Stock
+            </th>
+            <th>
+                Precio
+            </th>
+            <th>
+                Disponible
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PaginaProductos)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codcom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detalle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pmayor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activo)
+                </td>
+
+                <td>
+                    <a asp-action="Editar" asp-route-id="@item.IdArt">Editar</a> |
+                    <a asp-action="Detalle" asp-route-id="@item.IdArt">Detalle</a> |
+                    <a asp-action="Eliminar" asp-route-id="@item.IdArt">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="col-lg-5 col-md-5 col-sm-4 col-xs-10">
+    <label style="margin-top:3px">@Model.TotalDeRegistros registros encontrados.</label> 
+</div>
+@*<link href="~/css/bootstrap.min.css" rel="stylesheet" />*@
+@*<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />*@
+@*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+@{Html.RenderPartial("_Paginador", Model);}
